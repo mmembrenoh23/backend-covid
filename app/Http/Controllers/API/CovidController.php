@@ -14,28 +14,34 @@ class CovidController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    private $countries=[];
+    private $countries;
 
     public function __construct()
     {
-        $response = Http::get('https://restcountries.eu/rest/v2/all');
+        $response = Http::withHeaders([
+            'x-rapidapi-host' => 'covid-193.p.rapidapi.com',
+            'x-rapidapi-key' => '03b4755197mshcb4b0f5c939eee6p12fc8ejsncc5b7b48c4b9',
+            'useQueryString' => true
+        ])->get('https://covid-193.p.rapidapi.com/countries');
         if ($response->ok()) {
 
-            foreach ($response->json() as $c) {
+            foreach ($response->json()['response'] as $c) {
                 $this->countries[] = [
-                    "code" => $c["name"],
-                    "name" => $c["name"]
+                    "code" => $c,
+                    "name" => str_replace("-"," ",$c)
                 ];
             }
         }
-    }
 
+    }
     private function getCovidAPI($country = ""){
 
         $args=[];
         if(!empty($country)){
             $args=['country'=>$country];
         }
+
+       // Http::fake();
 
         $response = Http::withHeaders([
             'x-rapidapi-host' => 'covid-193.p.rapidapi.com',
@@ -51,13 +57,13 @@ class CovidController extends Controller
     {
         $covid_data = $this->getCovidAPI();
 
-        $data=['covid_data'=>'',"countries"=>$this->countries];
+        $data=['covid_data'=>json_encode([]),'countries'=> $this->countries];
 
         if($covid_data->ok()){
             $data['covid_data']= $covid_data->json();
         }
 
-        response()->json($data);
+        return response()->json($data);
     }
 
     /**
@@ -116,4 +122,5 @@ class CovidController extends Controller
     {
         //
     }
+
 }

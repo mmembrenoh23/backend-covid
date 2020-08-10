@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "backend_covid_project",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Backend Covid Project",
     "keywords": [
         "framework",
         "laravel"
