@@ -1,4 +1,4 @@
-<p align="center"><img src="https://rapidapi-prod-collections.s3.amazonaws.com/1934d868-b8b9-40bf-a3a0-a978f007f89d.png" width="400"></p>
+<p align="center"><img src="https://rapidapi-prod-collections.s3.amazonaws.com/1934d868-b8b9-40bf-a3a0-a978f007f89d.png" width="200"></p>
 
 ## About Project
 
